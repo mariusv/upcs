@@ -5,7 +5,7 @@ UPCS_VERSION=1.8
 
 # Define yes to make it to copy to url to clipboard (via a shortened url
 # service) You need to have the software xclip installed in your system.
-COPY_URL_TO_CLIPBOARD=yes
+COPY_URL_TO_CLIPBOARD=no
 
 # Containers to ignore in the list
 CONTAINERS_TO_IGNORE=".CDN_ACCESS_LOGS"
@@ -426,5 +426,6 @@ for arg in $ARGS;do
 
     put_object ${container} ${file} ${dest_name}
     [[ -n ${tarname} ]] && rm -f ${tarname}
+    exit 0
 done
 
