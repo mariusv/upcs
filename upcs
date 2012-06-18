@@ -194,7 +194,7 @@ function put_object {
     fi
 
     [[ $QUIET != "true" ]] && echo "Uploading ${file}"
-    curl ${options} -k -o/dev/null -f -X PUT -T ${file} -H "ETag: ${etag}" -H "Content-type: ${ctype}" -H "X-Auth-Token: ${StorageToken}" ${StorageUrl}/${container}/${object}
+    curl ${options} -k -o/dev/null -f -X PUT -T ${file} -H "ETag: ${etag}" -H "Content-type: ${ctype}" -H "X-Auth-Token: ${StorageToken}" -H "Access-Control-Allow-Origin: ${special_header}" ${StorageUrl}/${container}/${object}
     [[ $QUIET != "true" ]] && echo
 
     PUBLIC_CNAME=$(container_cname ${container})
@@ -327,7 +327,7 @@ choose_default=
 content_type=
 create_container=
 
-while getopts ":c:dxsu:k:a:C:qm:" opt; do
+while getopts ":c:dxsu:k:a:C:r:qm:" opt; do
   case $opt in
     q)
     QUIET=true
@@ -355,6 +355,9 @@ while getopts ":c:dxsu:k:a:C:qm:" opt; do
     ;;
     m)
     create_container=$OPTARG
+    ;;
+    r)
+    special_header=$OPTARG
     ;;
     x)
     set -x
